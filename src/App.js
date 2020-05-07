@@ -11,12 +11,14 @@ function App() {
   const amountEl = useRef();
 
   useEffect(() => {
-    axios.get("https://opentdb.com/api_category.php").then((res) => {
-      setCategories(res.data.trivia_categories);
-    });
+    async function fetchData() {
+      const categories = await axios.get(
+        "https://opentdb.com/api_category.php"
+      );
+      setCategories(categories.data.trivia_categories);
+    }
+    fetchData();
   }, []);
-
-  useEffect(() => {}, []);
 
   function decodeString(str) {
     const textArea = document.createElement("textarea");
